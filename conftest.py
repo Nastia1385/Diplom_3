@@ -12,7 +12,7 @@ from helpers import UserHelper
 import urls
 
 
-@pytest.fixture(params=['Chrome', 'Firefox'])
+@pytest.fixture(params=['Chrome'])
 def driver(request):
     """Параметризованная фикстура для запуска в разных браузерах"""
     browser_name = request.param

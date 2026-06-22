@@ -16,17 +16,17 @@ class MainPageLocators:
     # Раздел начинки
     SECTION_FILLING = (By.XPATH, "//span[text()='Начинки']")
     # Конструктор - ингредиенты
-    BUN_INGREDIENT = (By.XPATH, "//a[@href="/ingredient/691577430cc94f001a65b859"]")
-    SAUCE_INGREDIENT = (By.XPATH, "//a[@href="/ingredient/691577430cc94f001a65b85f"]")
-    FILLING_INGREDIENT = (By.XPATH, "//a[@href="/ingredient/691577430cc94f001a65b866"]")
+    BUN_INGREDIENT = (By.XPATH, '//a[@href="/ingredient/691577430cc94f001a65b859"]')
+    SAUCE_INGREDIENT = (By.XPATH, '//a[@href="/ingredient/691577430cc94f001a65b85f"]')
+    FILLING_INGREDIENT = (By.XPATH, '//a[@href="/ingredient/691577430cc94f001a65b866"]')
 
     # Каунтеры ингредиентов
     BUN_COUNTER = (By.XPATH,
-                   "//h2[text()='Булки']/parent::div/following-sibling::div//a//p[contains(@class, 'counter_counter__num__3nUE1')]")
+                   "//p[contains(text(),'Краторная булка N-200i')]/ancestor::a//p[@class='counter_counter__num__3nue1']")
     SAUCE_COUNTER = (By.XPATH,
-                     "//h2[text()='Соусы']/parent::div/following-sibling::div//a//p[contains(@class, 'counter_counter__num__3nUE1')]")
+                     "//p[contains(text(),'Соус Spicy-X')]/ancestor::a//p[@class='counter_counter__num__3nue1']")
     FILLING_COUNTER = (By.XPATH,
-                       "//h2[text()='Начинки']/parent::div/following-sibling::div//a//p[contains(@class, 'counter_counter__num__3nUE1')]")
+                       "//p[contains(text(),'Мини-салат Экзо-Плантаго')]/ancestor::a//p[@class='counter_counter__num__3nue1']")
 
     # Всплывающее окно с деталями ингредиента
     INGREDIENT_DETAILS_MODAL = (By.XPATH, "//h2[text()= 'Детали ингредиента']")
@@ -39,10 +39,13 @@ class MainPageLocators:
     INGREDIENT_TARGET = (By.XPATH,
                          "//section[contains(@class, 'BurgerConstructor_basket__2jHr3')]//ul[contains(@class, 'BurgerConstructor_basket__list__2MXlD')]")
     # Корзина для перетаскивания ингридиентов и булок
-    CONSTRUCTOR_BASKET = (By.XPATH, "//ul[@class="BurgerConstructor_basket__list__l9dp_"]")
+    CONSTRUCTOR_BASKET = (By.XPATH, '//ul[@class="BurgerConstructor_basket__list__l9dp_"]')
 
     # Заголовок конструктора для проверки
     CONSTRUCTOR_TITLE = (By.XPATH, "//h1[text()='Соберите бургер']")
 
     PULL_THE_BUN_UP = (By.XPATH, "//span[text()='Перетяните булочку сюда (верх)']")
     PULL_THE_BUN_DOWN = (By.XPATH, "//span[text()='Перетяните булочку сюда (низ)']")
+
+    ORDER_NUMBER_IN_MODAL = (By.XPATH, '// h2[@class ="Modal_modal__title_shadow__3ikwq Modal_modal__title__2L34m text text_type_digits-large mb-8"]')
+    ORDER_MODAL_CLOSE_DETAILS = (By.XPATH, '')

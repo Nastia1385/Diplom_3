@@ -45,38 +45,32 @@ class MainPage(BasePage):
         return self.find_element(MainPageLocators.INGREDIENT_DETAILS_MODAL).is_displayed()
 
     def get_bun_counter(self):
-        elements = self.driver.find_elements(*MainPageLocators.BUN_COUNTER)
-        if elements:
-            return int(elements[0].text)
-        return 0
+        count = self.driver.find_element(*MainPageLocators.BUN_COUNTER)
+        return int(count.text)
 
     def get_sauce_counter(self):
-        elements = self.driver.find_elements(*MainPageLocators.SAUCE_COUNTER)
-        if elements:
-            return int(elements[0].text)
-        return 0
+        count = self.driver.find_element(*MainPageLocators.SAUCE_COUNTER)
+        return int(count.text)
 
     def get_filling_counter(self):
-        elements = self.driver.find_elements(*MainPageLocators.FILLING_COUNTER)
-        if elements:
-            return int(elements[0].text)
-        return 0
+        count = self.driver.find_element(*MainPageLocators.FILLING_COUNTER)
+        return int(count.text)
 
     def add_bun_to_order(self):
-        self.drag_and_drop(MainPageLocators.BUN_INGREDIENT, MainPageLocators.BUN_TARGET)
+        self.drag_and_drop(MainPageLocators.BUN_INGREDIENT, MainPageLocators.PULL_THE_BUN_UP)
 
     def add_ingredient_to_order(self):
         # Добавляем любой ингредиент (соус или начинку)
-        self.drag_and_drop(MainPageLocators.SAUCE_INGREDIENT, MainPageLocators.INGREDIENT_TARGET)
+        self.drag_and_drop(MainPageLocators.SAUCE_INGREDIENT, MainPageLocators.PULL_THE_BUN_UP)
 
     def is_constructor_title_visible(self):
         return self.find_element(MainPageLocators.CONSTRUCTOR_TITLE).is_displayed()
 
     def wait_for_order_number_not_9999(self):
         # Ожидание пока текст на элементе не перестанет быть равным 9999
-        self.wait_for_text_not_to_be(MainPageLocators.ORDER_MODAL_CLOSE, "9999", 30)
+        self.wait_for_text_not_to_be(MainPageLocators.ORDER_NUMBER_IN_MODAL, "9999")
         # Получаем номер заказа
-        order_number_element = self.find_element(MainPageLocators.ORDER_MODAL_CLOSE)
+        order_number_element = self.find_element(MainPageLocators.ORDER_NUMBER_IN_MODAL)
         return order_number_element.text
 
     def close_order_modal(self):

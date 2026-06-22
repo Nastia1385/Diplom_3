@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 
 
 class OrderFeedPageLocators:
-    ORDER_FEED_HEADER = (By.XPATH, "//p[@class="AppHeader_header__linkText__3q_va ml-2"]")
+    ORDER_FEED_HEADER = (By.XPATH, '//p[@class="AppHeader_header__linkText__3q_va ml-2"]')
 
     # Список заказов
     ORDER_ITEM = (By.XPATH, "//li[contains(@class, 'OrderHistory_listItem__2x95r')]")
@@ -17,8 +17,8 @@ class OrderFeedPageLocators:
                             "//div[contains(@class, 'Modal_modal__contentBox__sCy8X')]//h2[contains(@class, 'text_type_digits-default')]")
 
     # Статистика заказов
-    ORDERS_COMPLETED_TOTAL = (By.XPATH, "//p[text()='Выполнено за всё время:']/following-sibling::p")
-    ORDERS_COMPLETED_TODAY = (By.XPATH, "//p[text()='Выполнено за сегодня:']/following-sibling::p")
+    ORDERS_COMPLETED_TOTAL = (By.XPATH, '//p[text()="Выполнено за все время:"]/following-sibling::p[contains(@class, "OrderFeed_number__2MbrQ")]')
+    ORDERS_COMPLETED_TODAY = (By.XPATH, "////p[text()='Выполнено за сегодня:']/following-sibling::p[contains(@class, 'OrderFeed_number__2MbrQ')]")
 
     # Список заказов в работе
     ORDERS_IN_PROGRESS = (By.XPATH, "//ul[contains(@class, 'OrderFeed_orderListReady__1YFEM')]/li")

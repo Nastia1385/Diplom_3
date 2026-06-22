@@ -36,8 +36,8 @@ class TestOrderFeed:
         login_page.login(user['email'], user['password'])
 
         # Создаем заказ
-        main_page.add_bun_to_order()
         main_page.add_ingredient_to_order()
+        main_page.add_bun_to_order()
         main_page.click_order_button()
         order_number = main_page.wait_for_order_number_not_9999()
         main_page.close_order_modal()
@@ -137,8 +137,8 @@ class TestOrderFeed:
         # )
         # assert main_page.is_constructor_title_visible()
 
-        main_page.add_bun_to_order()
         main_page.add_ingredient_to_order()
+        main_page.add_bun_to_order()
         main_page.click_order_button()
         order_number = main_page.wait_for_order_number_not_9999()
         main_page.close_order_modal()
