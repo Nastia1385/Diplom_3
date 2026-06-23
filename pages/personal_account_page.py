@@ -1,4 +1,3 @@
-# pages/personal_account_page.py
 from pages.base_page import BasePage
 from locators.personal_account_page_locators import PersonalAccountPageLocators
 import urls

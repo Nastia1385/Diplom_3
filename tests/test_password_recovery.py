@@ -7,7 +7,6 @@ class TestPasswordRecovery:
         """Проверка перехода на страницу восстановления пароля по кнопке «Восстановить пароль»"""
         login_page.open_login_page()
         login_page.click_password_recovery()
-
         # Проверяем, что мы на странице восстановления пароля
         assert driver.current_url == urls.PASSWORD_RECOVERY_URL
 
@@ -18,12 +17,10 @@ class TestPasswordRecovery:
         # Вводим email существующего пользователя
         password_recovery_page.enter_email_for_recovery(user['email'])
         password_recovery_page.click_recover_button()
-
         # Ожидаем перехода на страницу сброса пароля
         # WebDriverWait(driver, 10).until(
         #     EC.url_contains("/forgot-password")
         # )
-
         # Проверяем, что произошел переход на страницу сброса пароля
         assert "forgot-password" in driver.current_url
 
@@ -31,7 +28,6 @@ class TestPasswordRecovery:
     def test_show_password_button_highlights_field(self, driver, password_recovery_page, user):
         """Проверка клика по кнопке показать/скрыть пароль - поле становится активным"""
         password_recovery_page.open_password_recovery_page()
-
         # Вводим почту существующего пользователя
         password_recovery_page.enter_email_for_recovery(user['email'])
         password_recovery_page.click_recover_button()

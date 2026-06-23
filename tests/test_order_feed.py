@@ -1,7 +1,9 @@
 import pytest
+from selenium.webdriver.support.wait import WebDriverWait
 
+import urls
 from pages.order_feed_page import OrderFeedPage
-
+from selenium.webdriver.support import expected_conditions as EC
 
 class TestOrderFeed:
 
@@ -52,63 +54,6 @@ class TestOrderFeed:
         # Проверяем, что созданный заказ есть в ленте
         assert order_number in feed_order_numbers
 
-    # def test_create_order_increases_total_completed_count(self, driver, main_page, login_page, user):
-    #     """Проверка увеличения счетчика Выполнено за всё время при создании заказа"""
-    #     # Логинимся
-    #     login_page.open_login_page()
-    #     login_page.login(user['email'], user['password'])
-    #
-    #     # Переходим в ленту заказов и получаем начальное количество
-    #     main_page.click_order_feed()
-    #     order_feed_page = OrderFeedPage(driver)
-    #     initial_total = order_feed_page.get_completed_orders_total()
-    #
-    #     # Возвращаемся на главную и создаем заказ
-    #     main_page.click_constructor()
-    #
-    #     # Проверяем, что на главной странице
-    #     assert main_page.is_constructor_title_visible()
-    #
-    #     main_page.add_bun_to_order()
-    #     main_page.add_ingredient_to_order()
-    #     main_page.click_order_button()
-    #     order_number = main_page.wait_for_order_number_not_9999()
-    #     main_page.close_order_modal()
-    #
-    #     # Переходим в ленту заказов и получаем новое количество
-    #     main_page.click_order_feed()
-    #     new_total = order_feed_page.get_completed_orders_total()
-    #
-    #     # Проверяем, что количество увеличилось
-    #     assert new_total > initial_total
-    #
-    # def test_create_order_increases_today_completed_count(self, driver, main_page, login_page, user):
-    #     """Проверка увеличения счетчика Выполнено за сегодня при создании заказа"""
-    #     # Логинимся
-    #     login_page.open_login_page()
-    #     login_page.login(user['email'], user['password'])
-    #
-    #     # Переходим в ленту заказов и получаем начальное количество
-    #     main_page.click_order_feed()
-    #     order_feed_page = OrderFeedPage(driver)
-    #     initial_today = order_feed_page.get_completed_orders_today()
-    #
-    #     # Возвращаемся на главную и создаем заказ
-    #     main_page.click_constructor()
-    #     assert main_page.is_constructor_title_visible()
-    #
-    #     main_page.add_bun_to_order()
-    #     main_page.add_ingredient_to_order()
-    #     main_page.click_order_button()
-    #     order_number = main_page.wait_for_order_number_not_9999()
-    #     main_page.close_order_modal()
-    #
-    #     # Переходим в ленту заказов и получаем новое количество
-    #     main_page.click_order_feed()
-    #     new_today = order_feed_page.get_completed_orders_today()
-    #
-    #     # Проверяем, что количество увеличилось
-    #     assert new_today > initial_today
     @pytest.mark.parametrize("counter_method, counter_name", [
         ("get_completed_orders_total", "за всё время"),
         ("get_completed_orders_today", "за сегодня")
@@ -119,19 +64,16 @@ class TestOrderFeed:
         # Логинимся
         login_page.open_login_page()
         login_page.login(user['email'], user['password'])
-
         # Переходим в ленту заказов и получаем начальное количество
         main_page.click_order_feed()
         order_feed_page = OrderFeedPage(driver)
-
         # Получаем начальное значение с помощью метода
         get_counter = getattr(order_feed_page, counter_method)
         initial_value = get_counter()
-
         # Возвращаемся на главную и создаем заказ
         main_page.click_constructor()
 
-        # # Проверяем, что на главной странице
+        # Проверяем, что на главной странице
         # WebDriverWait(driver, 10).until(
         #     EC.url_to_be(urls.MAIN_PAGE_URL)
         # )
@@ -142,37 +84,32 @@ class TestOrderFeed:
         main_page.click_order_button()
         order_number = main_page.wait_for_order_number_not_9999()
         main_page.close_order_modal()
-
         # Переходим в ленту заказов и получаем новое количество
         main_page.click_order_feed()
-
         # Получаем новое значение с помощью метода
         new_value = get_counter()
-
         # Проверяем, что количество увеличилось
         assert new_value > initial_value, f"Счетчик 'Выполнено {counter_name}' не увеличился после создания заказа"
+
+
     def test_order_number_appears_in_progress_after_creation(self, driver, main_page, login_page, user):
         """Проверка появления номера заказа в разделе В работе после оформления"""
         # Логинимся
         login_page.open_login_page()
         login_page.login(user['email'], user['password'])
-
         # Создаем заказ
-        main_page.add_bun_to_order()
+
         main_page.add_ingredient_to_order()
+        main_page.add_bun_to_order()
         main_page.click_order_button()
         order_number = main_page.wait_for_order_number_not_9999()
         main_page.close_order_modal()
-
         # Переходим в ленту заказов
         main_page.click_order_feed()
         order_feed_page = OrderFeedPage(driver)
-
         # Ожидаем появления заказа в списке "В работе"
         order_feed_page.wait_for_order_in_progress(order_number)
-
         # Получаем заказы в работе
         orders_in_progress = order_feed_page.get_orders_in_progress()
-
         # Проверяем, что созданный заказ есть в списке
         assert order_number in orders_in_progress

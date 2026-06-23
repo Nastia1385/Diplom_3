@@ -11,13 +11,10 @@ class TestMainFunctionality:
         # Логинимся
         login_page.open_login_page()
         login_page.login(user['email'], user['password'])
-
         # Переходим в личный кабинет
         main_page.click_personal_account()
-
         # Кликаем на Конструктор
         main_page.click_constructor()
-
         # Проверяем, что на главной странице
         assert "/" in driver.current_url
         assert main_page.is_constructor_title_visible()
@@ -27,34 +24,27 @@ class TestMainFunctionality:
         # Логинимся
         login_page.open_login_page()
         login_page.login(user['email'], user['password'])
-
         # Кликаем на Ленту заказов
         main_page.click_order_feed()
-
         # Проверяем, что перешли на страницу ленты заказов
         assert "/feed" in driver.current_url
 
     def test_click_ingredient_shows_details_modal(self, driver, main_page):
         """Проверка появления всплывающего окна с деталями при клике на ингредиент"""
         main_page.open_main_page()
-
         # Кликаем на ингредиент
         main_page.click_bun_ingredient()
-
         # Проверяем, что появилось модальное окно
         assert main_page.is_ingredient_details_visible()
 
     def test_close_ingredient_details_modal(self, driver, main_page):
         """Проверка закрытия всплывающего окна кликом по крестику"""
         main_page.open_main_page()
-
         # Открываем детали ингредиента
         main_page.click_bun_ingredient()
         assert main_page.is_ingredient_details_visible()
-
         # Закрываем модальное окно
         main_page.close_ingredient_details()
-
         # Проверяем, что модальное окно закрылось (дожидаемся исчезновения)
         WebDriverWait(driver, 10).until(
             EC.invisibility_of_element_located(MainPageLocators.INGREDIENT_DETAILS_MODAL)
@@ -63,34 +53,28 @@ class TestMainFunctionality:
     def test_add_bun_increases_counter_by_2(self, driver, main_page):
         """Проверка увеличения каунтера булки на 2 при добавлении в заказ"""
         main_page.open_main_page()
-
         # Получаем начальное значение каунтера булки
         initial_counter = main_page.get_bun_counter()
-
         # Добавляем булку
         main_page.add_bun_to_order()
-
         # Получаем новое значение каунтера булки
         new_counter = main_page.get_bun_counter()
-
         # Проверяем, что каунтер увеличился на 2
         assert new_counter == initial_counter + 2
 
     def test_add_ingredient_increases_counter_by_1(self, driver, main_page):
         """Проверка увеличения каунтера ингредиента на 1 при добавлении в заказ"""
         main_page.open_main_page()
-
         # Получаем начальное значение каунтера соуса
         initial_counter = main_page.get_sauce_counter()
-
         # Добавляем ингредиент
         main_page.add_ingredient_to_order()
-
         # Получаем новое значение каунтера соуса
         new_counter = main_page.get_sauce_counter()
-
         # Проверяем, что каунтер увеличился на 1
         assert new_counter == initial_counter + 1
+
+
 # TODO работает не стабильно
     def test_logged_in_user_can_create_order(self, driver, main_page, login_page, user):
         """Проверка создания заказа залогиненным пользователем"""

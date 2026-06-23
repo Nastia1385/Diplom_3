@@ -1,7 +1,6 @@
-# pages/login_page.py
-from pages.base_page import BasePage
-from locators.login_page_locators import LoginPageLocators
 import urls
+from locators.login_page_locators import LoginPageLocators
+from pages.base_page import BasePage
 
 
 class LoginPage(BasePage):

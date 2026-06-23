@@ -1,9 +1,9 @@
-# pages/main_page.py
-from pages.base_page import BasePage
-from locators.main_page_locators import MainPageLocators
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+
 import urls
+from locators.main_page_locators import MainPageLocators
+from pages.base_page import BasePage
 
 
 class MainPage(BasePage):
@@ -72,6 +72,16 @@ class MainPage(BasePage):
         # Получаем номер заказа
         order_number_element = self.find_element(MainPageLocators.ORDER_NUMBER_IN_MODAL)
         return order_number_element.text
+
+    # def wait_for_order_number_not_9999(self):
+    #     """Ожидание появления номера заказа (не 9999)"""
+    #     # Ждем, пока номер заказа появится и не будет равен 9999
+    #     WebDriverWait(self.driver, 30).until(
+    #         lambda driver: driver.find_element(*MainPageLocators.ORDER_NUMBER_IN_MODAL).text != "9999"
+    #     )
+    #     # Получаем номер заказа
+    #     order_number_element = self.find_element(MainPageLocators.ORDER_NUMBER_IN_MODAL)
+    #     return order_number_element.text
 
     def close_order_modal(self):
         # Используем локатор, который ниже по дереву

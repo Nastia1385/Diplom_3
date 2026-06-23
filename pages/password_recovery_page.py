@@ -1,8 +1,5 @@
-# pages/password_recovery_page.py
-# from telnetlib import EC
-
 from selenium.webdriver.support.wait import WebDriverWait
-
+from selenium.webdriver.support import expected_conditions as EC
 from pages.base_page import BasePage
 from locators.password_recovery_page_locators import PasswordRecoveryPageLocators
 import urls
@@ -46,10 +43,10 @@ class PasswordRecoveryPage(BasePage):
         element = self.find_element(PasswordRecoveryPageLocators.PASSWORD_CONTAINER_FULL)
         return element.get_attribute('class')
 
-    # def wait_for_password_field(self):
-    #     """Ожидание появления поля для ввода нового пароля"""
-    #     WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(PasswordRecoveryPageLocators.PASSWORD_INPUT)
-    #     )
+    def wait_for_password_field(self):
+        """Ожидание появления поля для ввода нового пароля"""
+        WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(PasswordRecoveryPageLocators.PASSWORD_INPUT)
+        )
 
     def enter_new_password(self, password):
         self.send_keys_to_element(PasswordRecoveryPageLocators.PASSWORD_INPUT, password)

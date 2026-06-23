@@ -1,11 +1,10 @@
-# pages/order_feed_page.py
-# from telnetlib import EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 
 from pages.base_page import BasePage
 from locators.order_feed_page_locators import OrderFeedPageLocators
 import urls
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class OrderFeedPage(BasePage):
@@ -16,7 +15,7 @@ class OrderFeedPage(BasePage):
         self.open_page(urls.ORDER_FEED_URL)
 
     def get_order_numbers(self):
-        elements = self.driver.find_elements(*OrderFeedPageLocators.ORDER_ITEM_NUMBER)
+        elements = self.driver.find_elements(*OrderFeedPageLocators.ORDER_NUMBER_IN_FEED)
         numbers = []
         for element in elements:
             text = element.text
@@ -28,6 +27,10 @@ class OrderFeedPage(BasePage):
             else:
                 numbers.append(text)
         return numbers
+
+    # def get_order_numbers(self):
+    #     element = self.driver.find_elements(OrderFeedPageLocators.ORDER_NUMBER_IN_FEED)
+    #     return element.text
 
     def click_order_by_number(self, number):
         # Кликаем по заказу с определенным номером
