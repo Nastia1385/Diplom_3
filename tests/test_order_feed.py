@@ -21,8 +21,6 @@ class TestOrderFeed:
         # Проверяем, что открылось модальное окно
         assert order_feed_page.is_order_details_visible()
 
-
-
     @allure.step
     def test_user_orders_visible_in_order_feed(self, driver, main_page, login_page, user):
         """Проверка отображения заказов пользователя на странице Лента заказов"""
@@ -46,7 +44,6 @@ class TestOrderFeed:
 
         # Проверяем, что созданный заказ есть в ленте
         assert order_number in [int(num) for num in feed_order_numbers]
-
 
     @pytest.mark.parametrize("counter_method, counter_name", [
         ("get_completed_orders_total", "за всё время"),
@@ -92,19 +89,20 @@ class TestOrderFeed:
         # Логинимся
         login_page.open_login_page()
         login_page.login(user['email'], user['password'])
-        # Создаем заказ
 
+        # Создаем заказ
         main_page.add_ingredient_to_order()
         main_page.add_bun_to_order()
         main_page.click_order_button()
         order_number = main_page.wait_for_order_number_not_9999()
         main_page.close_order_modal()
+
         # Переходим в ленту заказов
         main_page.click_order_feed()
         order_feed_page = OrderFeedPage(driver)
-        # Ожидаем появления заказа в списке "В работе"
-        order_feed_page.wait_for_order_in_progress(order_number)
+
         # Получаем заказы в работе
-        orders_in_progress = order_feed_page.get_orders_in_progress()
+        order_numbers_in_progress = order_feed_page.get_orders_in_progress()
+
         # Проверяем, что созданный заказ есть в списке
-        assert order_number in orders_in_progress
+        assert int(order_number) in [int(num) for num in order_numbers_in_progress]
