@@ -1,3 +1,5 @@
+import time
+
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -47,9 +49,9 @@ class BasePage:
         )
 
     def wait_for_text_not_to_be(self, locator, text, timeout=30):
-        WebDriverWait(self.driver, timeout).until_not(
-            EC.text_to_be_present_in_element(locator, text)
-        )
+        wait = WebDriverWait(self.driver, timeout)
+        wait.until_not(EC.text_to_be_present_in_element(locator, text))
+        time.sleep(0.5)
 
     def wait_for_text_to_be(self, locator, text, timeout=10):
         WebDriverWait(self.driver, timeout).until(

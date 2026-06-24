@@ -23,14 +23,14 @@ class OrderFeedPageLocators:
 
     # Список заказов в работе
     ORDERS_IN_PROGRESS = (By.XPATH, "//ul[contains(@class, 'OrderFeed_orderListReady__1YFEM')]/li")
-    # ORDERS_IN_PROGRESS_LIST = (By.XPATH, "//ul[contains(@class, 'OrderFeed_orderListReady__1YFEM')]")
-    # ALL_ORDERS_DONE_MESSAGE = (By.XPATH, "//p[text()='Все текущие заказы готовы!']")
+    ORDERS_IN_PROGRESS_LIST = (By.XPATH, "//ul[contains(@class, 'OrderFeed_orderListReady__1YFEM')]")
+    ALL_ORDERS_DONE_MESSAGE = (By.XPATH, "//p[text()='Все текущие заказы готовы!']")
 
     # Номер заказа в оформлении
     ORDER_NUMBER_IN_MODAL = (By.XPATH,
                              "//div[contains(@class, 'Modal_modal__contentBox__sCy8X')]//h2[contains(@class, 'text_type_digits-large')]")
     ORDER_MODAL = (By.XPATH, "//div[contains(@class, 'Modal_modal_overlay__x2ZCr')]")
-    # ORDER_MODAL_CLOSE = (By.XPATH, "//div[contains(@class, 'Modal_modal__contentBox__sCy8X')]//button[contains(@class, 'Modal_modal__close__TnseK')]")
+    ORDER_MODAL_CLOSE = (By.XPATH, "//div[contains(@class, 'Modal_modal__contentBox__sCy8X')]//button[contains(@class, 'Modal_modal__close__TnseK')]")
     ORDER_MODAL_CLOSE_DETAILS = (By.XPATH,
                                  "//section[contains(@class, 'Modal_modal_opened__3ISKW')]//button[contains(@class, 'Modal_modal__close__TnseK')]")
     ORDER_NUMBER_IN_FEED = (By.XPATH, '//p[@class ="text text_type_digits-default"]')

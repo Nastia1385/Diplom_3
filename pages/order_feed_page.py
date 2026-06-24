@@ -14,29 +14,43 @@ class OrderFeedPage(BasePage):
     def open_order_feed_page(self):
         self.open_page(urls.ORDER_FEED_URL)
 
-    def get_order_numbers(self):
-        elements = self.driver.find_elements(*OrderFeedPageLocators.ORDER_NUMBER_IN_FEED)
-        numbers = []
-        for element in elements:
-            text = element.text
-            # Отсеиваем два первых знака # и 0
-            if text.startswith('#0'):
-                numbers.append(text[2:])
-            elif text.startswith('#'):
-                numbers.append(text[1:])
-            else:
-                numbers.append(text)
-        return numbers
+    # def get_order_numbers(self):
+    #     elements = self.driver.find_elements(*OrderFeedPageLocators.ORDER_NUMBER_IN_FEED)
+    #     numbers = []
+    #     for element in elements:
+    #         text = element.text
+    #         # Отсеиваем два первых знака # и 0
+    #         if text.startswith('#0'):
+    #             numbers.append(text[2:])
+    #         elif text.startswith('#'):
+    #             numbers.append(text[1:])
+    #         else:
+    #             numbers.append(text)
+    #     return numbers
 
+    def get_order_numbers(self):
+        wait = WebDriverWait(self.driver, 10)
+        order_list = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "OrderFeed_list__OLh59")))
+        order_elements = order_list.find_elements(By.CSS_SELECTOR, ".text_type_digits-default")
+        order_numbers = [el.text.replace('#', '') for el in order_elements]
+        return order_numbers
+
+    def click_order_by_number(self, order_number):
+        # Кликаем по заказу с определенным номером
+        wait = WebDriverWait(self.driver, 10)
+        order_element = wait.until(EC.presence_of_element_located(
+            (By.XPATH, f"//p[contains(@class, 'text_type_digits-default') and text()='#{order_number}']")))
+        link = order_element.find_element(By.XPATH, "./ancestor::li//a")
+        link.click()
     # def get_order_numbers(self):
     #     element = self.driver.find_elements(OrderFeedPageLocators.ORDER_NUMBER_IN_FEED)
     #     return element.text
 
-    def click_order_by_number(self, number):
-        # Кликаем по заказу с определенным номером
-        locator = (By.XPATH,
-                   f"//li[contains(@class, 'OrderHistory_listItem__2x95r')]//div[contains(@class, 'text_type_digits-default') and contains(text(), '#{number}')]")
-        self.click_element(locator)
+    # def click_order_by_number(self, number):
+    #     # Кликаем по заказу с определенным номером
+    #     locator = (By.XPATH,
+    #                f"//li[contains(@class, 'OrderHistory_listItem__2x95r')]//div[contains(@class, 'text_type_digits-default') and contains(text(), '#{number}')]")
+    #     self.click_element(locator)
 
     def is_order_details_visible(self):
         return self.find_element(OrderFeedPageLocators.ORDER_DETAILS_MODAL).is_displayed()
