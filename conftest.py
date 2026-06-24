@@ -9,20 +9,22 @@ from pages.personal_account_page import PersonalAccountPage
 from pages.order_feed_page import OrderFeedPage
 from helpers import UserHelper
 
-@pytest.fixture(params=['Chrome'], scope="function")
+@pytest.fixture(params=['Chrome', 'Firefox'], scope="function")
 def driver(request):
     """Параметризованная фикстура для запуска в разных браузерах"""
     browser_name = request.param
 
-    if browser_name == 'Chrome':
+    if browser_name.lower() == "chrome":
         options = ChromeOptions()
         options.add_argument("--window-size=1920,1080")
         driver = webdriver.Chrome(options=options)
-    else:  # Firefox
+    elif browser_name.lower() == "firefox":
         options = FirefoxOptions()
         options.add_argument("--width=1920")
         options.add_argument("--height=1080")
         driver = webdriver.Firefox(options=options)
+    else:
+        raise ValueError(f"Unsupported browser: {browser_name}")
 
     driver.maximize_window()
     yield driver
