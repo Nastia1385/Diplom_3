@@ -51,7 +51,7 @@ class BasePage:
     def wait_for_text_not_to_be(self, locator, text, timeout=30):
         wait = WebDriverWait(self.driver, timeout)
         wait.until_not(EC.text_to_be_present_in_element(locator, text))
-        time.sleep(0.5)
+        time.sleep(1)
 
     def wait_for_text_to_be(self, locator, text, timeout=10):
         WebDriverWait(self.driver, timeout).until(

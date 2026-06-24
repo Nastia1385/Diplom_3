@@ -1,4 +1,3 @@
-# conftest.py
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
@@ -9,10 +8,8 @@ from pages.password_recovery_page import PasswordRecoveryPage
 from pages.personal_account_page import PersonalAccountPage
 from pages.order_feed_page import OrderFeedPage
 from helpers import UserHelper
-import urls
 
-
-@pytest.fixture(params=['Chrome'])
+@pytest.fixture(params=['Chrome'], scope="function")
 def driver(request):
     """Параметризованная фикстура для запуска в разных браузерах"""
     browser_name = request.param
