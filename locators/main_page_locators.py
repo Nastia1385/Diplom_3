@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 class MainPageLocators:
     # Кнопки навигации
     PERSONAL_ACCOUNT_BUTTON = (By.XPATH, "//a[contains(@href, '/account')]")
+
     CONSTRUCTOR_BUTTON = (By.XPATH, "//a[contains(@href, '/')]")
     ORDER_FEED_BUTTON = (By.XPATH, '//p[text()="Лента Заказов"]')
     # Кнопка для оформления заказа

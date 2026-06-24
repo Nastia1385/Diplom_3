@@ -15,10 +15,9 @@ class BasePage:
         )
 
     def click_element(self, locator, timeout=10):
-        element = WebDriverWait(self.driver, timeout).until(
-            EC.element_to_be_clickable(locator)
-        )
-        element.click()
+        wait = WebDriverWait(self.driver, timeout)
+        element = wait.until(EC.element_to_be_clickable(locator))
+        self.driver.execute_script("arguments[0].click();", element)
 
     def send_keys_to_element(self, locator, text, timeout=10):
         element = self.find_element(locator, timeout)

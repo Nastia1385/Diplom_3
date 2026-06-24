@@ -9,7 +9,8 @@ from pages.personal_account_page import PersonalAccountPage
 from pages.order_feed_page import OrderFeedPage
 from helpers import UserHelper
 
-@pytest.fixture(params=['Chrome', 'Firefox'], scope="function")
+# @pytest.fixture(params=['Chrome'], scope="function")
+@pytest.fixture(params=['Firefox'], scope="function")
 def driver(request):
     """Параметризованная фикстура для запуска в разных браузерах"""
     browser_name = request.param

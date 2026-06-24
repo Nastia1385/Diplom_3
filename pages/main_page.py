@@ -1,6 +1,8 @@
 import time
 from time import sleep
 
+from selenium.webdriver import ActionChains
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -17,11 +19,23 @@ class MainPage(BasePage):
         self.open_page(urls.MAIN_PAGE_URL)
 
     def click_personal_account(self):
-        # Специальное ожидание для кликабельности элемента с учетом перехвата клика
+        # Ждем появления элемента
         element = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located(MainPageLocators.PERSONAL_ACCOUNT_BUTTON)
+        )
+
+        # Ждем, пока элемент станет кликабельным
+        WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable(MainPageLocators.PERSONAL_ACCOUNT_BUTTON)
         )
+
+        # Скроллим до элемента
+        self.driver.execute_script("arguments[0].scrollIntoView(true);", element)
+        time.sleep(0.5)
+
+        # Кликаем обычным способом
         element.click()
+
 
     def click_constructor(self):
         self.click_element(MainPageLocators.CONSTRUCTOR_BUTTON)
