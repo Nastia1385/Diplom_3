@@ -1,7 +1,8 @@
-# helpers.py
-import requests
 import random
 import string
+
+import requests
+
 import urls
 
 
@@ -54,21 +55,3 @@ class UserHelper:
             response = requests.delete(f"{urls.API_URL}/auth/user", headers=headers)
             return response.status_code == 200
         return False
-
-    # @staticmethod
-    # def login_user(email, password):
-    #     payload = {"email": email, "password": password}
-    #     response = requests.post(f"{urls.API_URL}/auth/login", json=payload)
-    #     if response.status_code == 200:
-    #         data = response.json()
-    #         return data.get("accessToken")
-    #     return None
-    #
-    # @staticmethod
-    # def get_user_orders(access_token):
-    #     headers = {"Authorization": access_token}
-    #     response = requests.get(f"{urls.API_URL}/orders", headers=headers)
-    #     if response.status_code == 200:
-    #         data = response.json()
-    #         return data.get("orders", [])
-    #     return []

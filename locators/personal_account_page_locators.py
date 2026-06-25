@@ -7,6 +7,5 @@ class PersonalAccountPageLocators:
     LOGOUT_BUTTON = (By.XPATH, "//button[contains(@class, 'Account_button__14Yp3') and text()='Выход']")
 
     # История заказов
-    # ORDER_HISTORY_LIST = (By.XPATH, "//li[contains(@class, 'OrderHistory_listItem__2x95r')]")
     ORDER_HISTORY_ITEM = (By.XPATH,
                           "//li[contains(@class, 'OrderHistory_listItem__2x95r')]//div[contains(@class, 'text_type_digits-default')]")

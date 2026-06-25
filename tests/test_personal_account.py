@@ -2,9 +2,9 @@ import allure
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
+import urls
 from locators.personal_account_page_locators import PersonalAccountPageLocators
 from pages.personal_account_page import PersonalAccountPage
-import urls
 
 
 class TestPersonalAccount:
@@ -17,8 +17,8 @@ class TestPersonalAccount:
         # Переходим в личный кабинет
         main_page.click_personal_account()
         # Проверяем, что перешли на страницу аккаунта
-        assert "/account" in driver.current_url
-        assert main_page.find_element(PersonalAccountPageLocators.PROFILE_HEADER).is_displayed()
+        assert "/account" in driver.current_url and main_page.find_element(
+            PersonalAccountPageLocators.PROFILE_HEADER).is_displayed()
 
     @allure.step
     def test_click_order_history_navigates_to_history(self, driver, main_page, login_page, user):

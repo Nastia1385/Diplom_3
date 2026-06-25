@@ -1,8 +1,6 @@
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from pages.base_page import BasePage
-from locators.password_recovery_page_locators import PasswordRecoveryPageLocators
 import urls
+from locators.password_recovery_page_locators import PasswordRecoveryPageLocators
+from pages.base_page import BasePage
 
 
 class PasswordRecoveryPage(BasePage):
@@ -24,37 +22,3 @@ class PasswordRecoveryPage(BasePage):
     def get_password_input_class(self):
         element = self.find_element(PasswordRecoveryPageLocators.PASSWORD_INPUT_CONTAINER)
         return element.get_attribute('class')
-
-    # def get_password_input_type(self):
-    #     """Получение типа поля ввода пароля"""
-    #     element = self.find_element(PasswordRecoveryPageLocators.PASSWORD_INPUT)
-    #     return element.get_attribute('type')
-
-    # def is_password_field_active(self):
-    #     """Проверка, что поле пароля активно (подсвечено)"""
-    #     try:
-    #         element = self.find_element(PasswordRecoveryPageLocators.PASSWORD_INPUT_CONTAINER_ACTIVE)
-    #         return element.is_displayed()
-    #     except:
-    #         return False
-
-    # def get_container_class(self):
-    #     """Получение класса контейнера"""
-    #     element = self.find_element(PasswordRecoveryPageLocators.PASSWORD_CONTAINER_FULL)
-    #     return element.get_attribute('class')
-
-    # def wait_for_password_field(self):
-    #     """Ожидание появления поля для ввода нового пароля"""
-    #     WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(PasswordRecoveryPageLocators.PASSWORD_INPUT)
-    #     )
-
-    # def enter_new_password(self, password):
-    #     self.send_keys_to_element(PasswordRecoveryPageLocators.PASSWORD_INPUT, password)
-
-    # def get_password_input_container_class(self):
-    #     element = self.find_element(PasswordRecoveryPageLocators.PASSWORD_INPUT_CONTAINER)
-    #     return element.get_attribute('class')
-
-    # def enter_new_password(self, password):
-    #     self.send_keys_to_element(PasswordRecoveryPageLocators.PASSWORD_INPUT, password)
-

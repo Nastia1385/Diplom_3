@@ -1,5 +1,3 @@
-import time
-
 import allure
 import pytest
 
@@ -12,14 +10,11 @@ class TestOrderFeed:
     def test_click_order_in_feed_opens_details(self, driver, order_feed_page):
         """Проверка открытия всплывающего окна с деталями при клике на заказ в ленте"""
         order_feed_page.open_order_feed_page()
-
         # Получаем номера заказов
         order_feed_page = OrderFeedPage(driver)
         order_numbers = order_feed_page.get_order_numbers()
-
         # Кликаем по первому заказу
         order_feed_page.click_order_by_number(order_numbers[0])
-
         # Проверяем, что открылось модальное окно
         assert order_feed_page.is_order_details_visible()
 
@@ -29,21 +24,17 @@ class TestOrderFeed:
         # Логинимся
         login_page.open_login_page()
         login_page.login(user['email'], user['password'])
-
         # Создаем заказ
         main_page.add_ingredient_to_order()
         main_page.add_bun_to_order()
         main_page.click_order_button()
         order_number = int(main_page.wait_for_order_number_not_9999())
         main_page.close_order_modal()
-
         # Переходим в ленту заказов
         main_page.click_order_feed()
-
         # Получаем номера заказов в ленте
         order_feed_page = OrderFeedPage(driver)
         feed_order_numbers = order_feed_page.get_order_numbers()
-
         # Проверяем, что созданный заказ есть в ленте
         assert order_number in [int(num) for num in feed_order_numbers]
 
@@ -66,13 +57,6 @@ class TestOrderFeed:
         initial_value = get_counter()
         # Возвращаемся на главную и создаем заказ
         main_page.click_constructor()
-
-        # Проверяем, что на главной странице
-        # WebDriverWait(driver, 10).until(
-        #     EC.url_to_be(urls.MAIN_PAGE_URL)
-        # )
-        # assert main_page.is_constructor_title_visible()
-
         main_page.add_ingredient_to_order()
         main_page.add_bun_to_order()
         main_page.click_order_button()
@@ -91,7 +75,6 @@ class TestOrderFeed:
         # Логинимся
         login_page.open_login_page()
         login_page.login(user['email'], user['password'])
-
         # Создаем заказ
         main_page.add_ingredient_to_order()
         main_page.add_bun_to_order()

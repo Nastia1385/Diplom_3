@@ -81,26 +81,21 @@ class TestMainFunctionality:
         assert new_counter == initial_counter + 1
 
 
-# # TODO работает не стабильно
-#     @allure.step
-#     def test_logged_in_user_can_create_order(self, driver, main_page, login_page, user):
-#         """Проверка создания заказа залогиненным пользователем"""
-#         # Логинимся
-#         login_page.open_login_page()
-#         login_page.login(user['email'], user['password'])
-#
-#         # Добавляем булку и ингредиент в заказ
-#         main_page.add_ingredient_to_order()
-#         main_page.add_bun_to_order()
-#
-#         # Нажимаем на кнопку оформления заказа
-#         main_page.click_order_button()
-#
-#         # Ожидаем появления номера заказа (текст не должен быть 9999)
-#         order_number = main_page.wait_for_order_number_not_9999()
-#
-#         # Проверяем, что номер заказа получен
-#         assert order_number is not None
-#         assert order_number != "9999"
-#         assert order_number.isdigit()
-#
+    @allure.step
+    def test_logged_in_user_can_create_order(self, driver, main_page, login_page, user):
+        """Проверка создания заказа залогиненным пользователем"""
+        # Логинимся
+        login_page.open_login_page()
+        login_page.login(user['email'], user['password'])
+        # Добавляем булку и ингредиент в заказ
+        main_page.add_ingredient_to_order()
+        main_page.add_bun_to_order()
+        # Нажимаем на кнопку оформления заказа
+        main_page.click_order_button()
+        # Ожидаем появления номера заказа (текст не должен быть 9999)
+        order_number = main_page.wait_for_order_number_not_9999()
+        # Проверяем, что номер заказа получен
+        assert (order_number is not None
+                and order_number != "9999"
+                and order_number.isdigit())
+

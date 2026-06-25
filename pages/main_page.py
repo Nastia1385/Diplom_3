@@ -20,16 +20,13 @@ class MainPage(BasePage):
         element = WebDriverWait(self.driver, 10).until(
             EC.presence_of_element_located(MainPageLocators.PERSONAL_ACCOUNT_BUTTON)
         )
-
         # Ждем, пока элемент станет кликабельным
         WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable(MainPageLocators.PERSONAL_ACCOUNT_BUTTON)
         )
-
         # Скроллим до элемента
         self.driver.execute_script("arguments[0].scrollIntoView(true);", element)
         time.sleep(0.5)
-
         # Кликаем обычным способом
         element.click()
 
@@ -44,9 +41,6 @@ class MainPage(BasePage):
 
     def click_bun_ingredient(self):
         self.click_element(MainPageLocators.BUN_INGREDIENT)
-
-    # def click_sauce_ingredient(self):
-    #     self.click_element(MainPageLocators.SAUCE_INGREDIENT)
 
     def click_filling_ingredient(self):
         self.click_element(MainPageLocators.FILLING_INGREDIENT)
@@ -64,10 +58,6 @@ class MainPage(BasePage):
     def get_sauce_counter(self):
         count = self.driver.find_element(*MainPageLocators.SAUCE_COUNTER)
         return int(count.text)
-
-    # def get_filling_counter(self):
-    #     count = self.driver.find_element(*MainPageLocators.FILLING_COUNTER)
-    #     return int(count.text)
 
     def add_bun_to_order(self):
         self.drag_and_drop(MainPageLocators.BUN_INGREDIENT, MainPageLocators.PULL_THE_BUN_UP)

@@ -13,20 +13,6 @@ class OrderFeedPage(BasePage):
     def open_order_feed_page(self):
         self.open_page(urls.ORDER_FEED_URL)
 
-    # def get_order_numbers(self):
-    #     elements = self.driver.find_elements(*OrderFeedPageLocators.ORDER_NUMBER_IN_FEED)
-    #     numbers = []
-    #     for element in elements:
-    #         text = element.text
-    #         # Отсеиваем два первых знака # и 0
-    #         if text.startswith('#0'):
-    #             numbers.append(text[2:])
-    #         elif text.startswith('#'):
-    #             numbers.append(text[1:])
-    #         else:
-    #             numbers.append(text)
-    #     return numbers
-
     def get_order_numbers(self):
         wait = WebDriverWait(self.driver, 10)
         order_list = wait.until(EC.presence_of_element_located(OrderFeedPageLocators.ORDER_ITEM))
@@ -44,9 +30,6 @@ class OrderFeedPage(BasePage):
     def is_order_details_visible(self):
         return self.find_element(OrderFeedPageLocators.ORDER_DETAILS_MODAL).is_displayed()
 
-    # def close_order_details(self):
-    #     self.click_element(OrderFeedPageLocators.ORDER_DETAILS_CLOSE_BUTTON)
-
     def get_completed_orders_total(self):
         text = self.get_text(OrderFeedPageLocators.ORDERS_COMPLETED_TOTAL)
         return int(text) if text.isdigit() else 0
@@ -61,10 +44,3 @@ class OrderFeedPage(BasePage):
         order_elements = wait.until(EC.presence_of_all_elements_located(OrderFeedPageLocators.ORDERS_IN_PROGRESS_LIST))
         order_numbers = [el.text for el in order_elements]
         return order_numbers
-
-    # def get_order_detail_number(self):
-    #     element = self.find_element(OrderFeedPageLocators.ORDER_DETAILS_NUMBER)
-    #     text = element.text
-    #     if text.startswith('#'):
-    #         return text[1:]
-    #     return text
