@@ -1,10 +1,9 @@
-from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
-from pages.base_page import BasePage
-from locators.order_feed_page_locators import OrderFeedPageLocators, order_by_number_locator
 import urls
-from selenium.webdriver.support import expected_conditions as EC
+from locators.order_feed_page_locators import OrderFeedPageLocators, order_by_number_locator
+from pages.base_page import BasePage
 
 
 class OrderFeedPage(BasePage):
@@ -45,8 +44,8 @@ class OrderFeedPage(BasePage):
     def is_order_details_visible(self):
         return self.find_element(OrderFeedPageLocators.ORDER_DETAILS_MODAL).is_displayed()
 
-    def close_order_details(self):
-        self.click_element(OrderFeedPageLocators.ORDER_DETAILS_CLOSE_BUTTON)
+    # def close_order_details(self):
+    #     self.click_element(OrderFeedPageLocators.ORDER_DETAILS_CLOSE_BUTTON)
 
     def get_completed_orders_total(self):
         text = self.get_text(OrderFeedPageLocators.ORDERS_COMPLETED_TOTAL)
@@ -63,9 +62,9 @@ class OrderFeedPage(BasePage):
         order_numbers = [el.text for el in order_elements]
         return order_numbers
 
-    def get_order_detail_number(self):
-        element = self.find_element(OrderFeedPageLocators.ORDER_DETAILS_NUMBER)
-        text = element.text
-        if text.startswith('#'):
-            return text[1:]
-        return text
+    # def get_order_detail_number(self):
+    #     element = self.find_element(OrderFeedPageLocators.ORDER_DETAILS_NUMBER)
+    #     text = element.text
+    #     if text.startswith('#'):
+    #         return text[1:]
+    #     return text

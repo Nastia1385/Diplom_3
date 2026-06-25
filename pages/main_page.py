@@ -1,8 +1,5 @@
 import time
-from time import sleep
 
-from selenium.webdriver import ActionChains
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -36,7 +33,6 @@ class MainPage(BasePage):
         # Кликаем обычным способом
         element.click()
 
-
     def click_constructor(self):
         self.click_element(MainPageLocators.CONSTRUCTOR_BUTTON)
 
@@ -49,8 +45,8 @@ class MainPage(BasePage):
     def click_bun_ingredient(self):
         self.click_element(MainPageLocators.BUN_INGREDIENT)
 
-    def click_sauce_ingredient(self):
-        self.click_element(MainPageLocators.SAUCE_INGREDIENT)
+    # def click_sauce_ingredient(self):
+    #     self.click_element(MainPageLocators.SAUCE_INGREDIENT)
 
     def click_filling_ingredient(self):
         self.click_element(MainPageLocators.FILLING_INGREDIENT)
@@ -69,9 +65,9 @@ class MainPage(BasePage):
         count = self.driver.find_element(*MainPageLocators.SAUCE_COUNTER)
         return int(count.text)
 
-    def get_filling_counter(self):
-        count = self.driver.find_element(*MainPageLocators.FILLING_COUNTER)
-        return int(count.text)
+    # def get_filling_counter(self):
+    #     count = self.driver.find_element(*MainPageLocators.FILLING_COUNTER)
+    #     return int(count.text)
 
     def add_bun_to_order(self):
         self.drag_and_drop(MainPageLocators.BUN_INGREDIENT, MainPageLocators.PULL_THE_BUN_UP)
@@ -89,16 +85,6 @@ class MainPage(BasePage):
         # Получаем номер заказа
         order_number_element = self.find_element(MainPageLocators.ORDER_NUMBER_IN_MODAL)
         return order_number_element.text
-
-    # def wait_for_order_number_not_9999(self):
-    #     """Ожидание появления номера заказа (не 9999)"""
-    #     # Ждем, пока номер заказа появится и не будет равен 9999
-    #     WebDriverWait(self.driver, 30).until(
-    #         lambda driver: driver.find_element(*MainPageLocators.ORDER_NUMBER_IN_MODAL).text != "9999"
-    #     )
-    #     # Получаем номер заказа
-    #     order_number_element = self.find_element(MainPageLocators.ORDER_NUMBER_IN_MODAL)
-    #     return order_number_element.text
 
     def close_order_modal(self):
         # Используем локатор, который ниже по дереву

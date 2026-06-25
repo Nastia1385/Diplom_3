@@ -1,3 +1,5 @@
+import time
+
 import allure
 import pytest
 
@@ -96,13 +98,10 @@ class TestOrderFeed:
         main_page.click_order_button()
         order_number = main_page.wait_for_order_number_not_9999()
         main_page.close_order_modal()
-
         # Переходим в ленту заказов
         main_page.click_order_feed()
         order_feed_page = OrderFeedPage(driver)
-
         # Получаем заказы в работе
         order_numbers_in_progress = order_feed_page.get_orders_in_progress()
-
         # Проверяем, что созданный заказ есть в списке
         assert int(order_number) in [int(num) for num in order_numbers_in_progress]

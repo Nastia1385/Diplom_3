@@ -55,20 +55,20 @@ class UserHelper:
             return response.status_code == 200
         return False
 
-    @staticmethod
-    def login_user(email, password):
-        payload = {"email": email, "password": password}
-        response = requests.post(f"{urls.API_URL}/auth/login", json=payload)
-        if response.status_code == 200:
-            data = response.json()
-            return data.get("accessToken")
-        return None
-
-    @staticmethod
-    def get_user_orders(access_token):
-        headers = {"Authorization": access_token}
-        response = requests.get(f"{urls.API_URL}/orders", headers=headers)
-        if response.status_code == 200:
-            data = response.json()
-            return data.get("orders", [])
-        return []
+    # @staticmethod
+    # def login_user(email, password):
+    #     payload = {"email": email, "password": password}
+    #     response = requests.post(f"{urls.API_URL}/auth/login", json=payload)
+    #     if response.status_code == 200:
+    #         data = response.json()
+    #         return data.get("accessToken")
+    #     return None
+    #
+    # @staticmethod
+    # def get_user_orders(access_token):
+    #     headers = {"Authorization": access_token}
+    #     response = requests.get(f"{urls.API_URL}/orders", headers=headers)
+    #     if response.status_code == 200:
+    #         data = response.json()
+    #         return data.get("orders", [])
+    #     return []

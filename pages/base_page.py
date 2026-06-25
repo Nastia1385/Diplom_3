@@ -1,5 +1,7 @@
 import time
 
+import allure
+from selenium.common import ElementClickInterceptedException
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions as EC, expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
@@ -14,20 +16,11 @@ class BasePage:
         element = wait.until(EC.presence_of_element_located(locator))
         return element
 
-    def click_element(self, locator, timeout=10):
-        wait = WebDriverWait(self.driver, timeout)
-        element = wait.until(EC.element_to_be_clickable(locator))
-        browser_name = self.driver.capabilities['browserName'].lower()
-        if browser_name == 'chrome':
-            element.click()
-        elif browser_name == 'firefox':
-            self.driver.execute_script("arguments[0].click();", element)
-
-    def click_virt_mouse(self, locator):
-        action = ActionChains(self.driver)
-        WebDriverWait(self.driver, 5).until(expected_conditions.element_to_be_clickable(locator))
-        element = self.driver.find_element(*locator)
-        action.click(on_element=element).perform()
+    # def click_virt_mouse(self, locator):
+    #     action = ActionChains(self.driver)
+    #     WebDriverWait(self.driver, 5).until(expected_conditions.element_to_be_clickable(locator))
+    #     element = self.driver.find_element(*locator)
+    #     action.click(on_element=element).perform()
 
     def send_keys_to_element(self, locator, text, timeout=10):
         element = self.find_element(locator, timeout)
@@ -42,35 +35,63 @@ class BasePage:
         element = self.find_element(locator, timeout)
         return element.get_attribute(attribute)
 
-    def drag_and_drop(self, source_locator, target_locator, timeout=10):
-        source = self.find_element(source_locator, timeout)
-        target = self.find_element(target_locator, timeout)
-        ActionChains(self.driver).drag_and_drop(source, target).perform()
+    @allure.step('Перетаскивание элемента')
+    def drag_and_drop(self, locator_from, locator_to, timeout=10):
+        element_from = self.find_element(locator_from, timeout)
+        element_to = self.find_element(locator_to, timeout)
+        self.driver.execute_script("""
+                       var source = arguments[0];
+                       var target = arguments[1];
+                       var evt = document.createEvent("DragEvent");
+                       evt.initMouseEvent("dragstart", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+                       source.dispatchEvent(evt);
+                       evt = document.createEvent("DragEvent");
+                       evt.initMouseEvent("dragenter", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+                       target.dispatchEvent(evt);
+                       evt = document.createEvent("DragEvent");
+                       evt.initMouseEvent("dragover", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+                       target.dispatchEvent(evt);
+                       evt = document.createEvent("DragEvent");
+                       evt.initMouseEvent("drop", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+                       target.dispatchEvent(evt);
+                       evt = document.createEvent("DragEvent");
+                       evt.initMouseEvent("dragend", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+                       source.dispatchEvent(evt);
+                   """, element_from, element_to)
 
-    def wait_for_invisibility(self, locator, timeout=10):
-        WebDriverWait(self.driver, timeout).until(
-            EC.invisibility_of_element_located(locator)
-        )
+    def click_element(self, locator, timeout=10):
+        time.sleep(0.3)
+        wait = WebDriverWait(self.driver, timeout)
+        element = wait.until(EC.element_to_be_clickable(locator))
+        try:
+            element.click()
+        except ElementClickInterceptedException:
+            self.driver.execute_script("arguments[0].click();", element)
 
-    def wait_for_visibility(self, locator, timeout=10):
-        WebDriverWait(self.driver, timeout).until(
-            EC.visibility_of_element_located(locator)
-        )
+    # def wait_for_invisibility(self, locator, timeout=10):
+    #     WebDriverWait(self.driver, timeout).until(
+    #         EC.invisibility_of_element_located(locator)
+    #     )
+
+    # def wait_for_visibility(self, locator, timeout=10):
+    #     WebDriverWait(self.driver, timeout).until(
+    #         EC.visibility_of_element_located(locator)
+    #     )
 
     def wait_for_text_not_to_be(self, locator, text, timeout=30):
         wait = WebDriverWait(self.driver, timeout)
         wait.until_not(EC.text_to_be_present_in_element(locator, text))
         time.sleep(1)
 
-    def wait_for_text_to_be(self, locator, text, timeout=10):
-        WebDriverWait(self.driver, timeout).until(
-            EC.text_to_be_present_in_element(locator, text)
-        )
+    # def wait_for_text_to_be(self, locator, text, timeout=10):
+    #     WebDriverWait(self.driver, timeout).until(
+    #         EC.text_to_be_present_in_element(locator, text)
+    #     )
 
-    def wait_for_element_to_be_clickable(self, locator, timeout=10):
-        return WebDriverWait(self.driver, timeout).until(
-            EC.element_to_be_clickable(locator)
-        )
+    # def wait_for_element_to_be_clickable(self, locator, timeout=10):
+    #     return WebDriverWait(self.driver, timeout).until(
+    #         EC.element_to_be_clickable(locator)
+    #     )
 
     def open_page(self, url):
         self.driver.get(url)

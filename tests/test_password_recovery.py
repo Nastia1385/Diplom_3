@@ -20,11 +20,6 @@ class TestPasswordRecovery:
         # Вводим email существующего пользователя
         password_recovery_page.enter_email_for_recovery(user['email'])
         password_recovery_page.click_recover_button()
-        # Ожидаем перехода на страницу сброса пароля
-        # WebDriverWait(driver, 10).until(
-        #     EC.url_contains("/forgot-password")
-        # )
-        # Проверяем, что произошел переход на страницу сброса пароля
         assert "forgot-password" in driver.current_url
 
     @allure.step
@@ -34,30 +29,11 @@ class TestPasswordRecovery:
         # Вводим почту существующего пользователя
         password_recovery_page.enter_email_for_recovery(user['email'])
         password_recovery_page.click_recover_button()
-
-        # Ожидаем перехода на страницу сброса пароля
-        # password_recovery_page.wait_for_reset_password_page()
-
-        # # Ожидаем появления поля для ввода нового пароля
-        # password_recovery_page.wait_for_password_field()
-
         # Получаем класс до клика
         class_before = password_recovery_page.get_password_input_class()
-
-        # Проверяем, что класс не содержит active до клика
-        # assert "input_status_active" not in class_before
-
-        # Получаем тип поля до клика (должен быть password)
-        type_before = password_recovery_page.get_password_input_type()
-        # assert type_before == "password"
-
         # Кликаем по кнопке показать пароль
         password_recovery_page.show_password()
-
         # Получаем класс после клика
         class_after = password_recovery_page.get_password_input_class()
-
         # Проверяем, что класс изменился - добавился input_status_active
         assert "input_status_active" in class_after and class_before != class_after
-
-

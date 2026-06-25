@@ -10,19 +10,19 @@ from pages.order_feed_page import OrderFeedPage
 from helpers import UserHelper
 
 # @pytest.fixture(params=['Chrome'], scope="function")
-@pytest.fixture(params=['Firefox'], scope="function")
+@pytest.fixture(params=['Chrome', 'Firefox'], scope="function")
 def driver(request):
     """Параметризованная фикстура для запуска в разных браузерах"""
     browser_name = request.param
 
     if browser_name.lower() == "chrome":
         options = ChromeOptions()
-        options.add_argument("--window-size=1920,1080")
+        # options.add_argument("--window-size=1920,1080")
         driver = webdriver.Chrome(options=options)
     elif browser_name.lower() == "firefox":
         options = FirefoxOptions()
-        options.add_argument("--width=1920")
-        options.add_argument("--height=1080")
+        # options.add_argument("--width=1920")
+        # options.add_argument("--height=1080")
         driver = webdriver.Firefox(options=options)
     else:
         raise ValueError(f"Unsupported browser: {browser_name}")
@@ -47,9 +47,9 @@ def password_recovery_page(driver):
     return PasswordRecoveryPage(driver)
 
 
-@pytest.fixture
-def personal_account_page(driver):
-    return PersonalAccountPage(driver)
+# @pytest.fixture
+# def personal_account_page(driver):
+#     return PersonalAccountPage(driver)
 
 
 @pytest.fixture
@@ -67,8 +67,8 @@ def user():
         UserHelper.delete_user(user_data.get('access_token'))
 
 
-@pytest.fixture
-def user_without_delete():
-    """Создание тестового пользователя без автоматического удаления (для тестов, где удаление вручную)"""
-    user_data = UserHelper.create_user()
-    yield user_data
+# @pytest.fixture
+# def user_without_delete():
+#     """Создание тестового пользователя без автоматического удаления (для тестов, где удаление вручную)"""
+#     user_data = UserHelper.create_user()
+#     yield user_data
