@@ -60,7 +60,7 @@ class TestOrderFeed:
         main_page.add_ingredient_to_order()
         main_page.add_bun_to_order()
         main_page.click_order_button()
-        order_number = main_page.wait_for_order_number_not_9999()
+        main_page.wait_for_order_number_not_9999()
         main_page.close_order_modal()
         # Переходим в ленту заказов и получаем новое количество
         main_page.click_order_feed()
