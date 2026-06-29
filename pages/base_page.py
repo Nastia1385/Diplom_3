@@ -15,6 +15,15 @@ class BasePage:
         element = wait.until(EC.presence_of_element_located(locator))
         return element
 
+    def wait_clickable_element(self, locator, timeout=30):
+        wait = WebDriverWait(self.driver, timeout)
+        element = wait.until(EC.element_to_be_clickable(locator))
+        return element
+
+    def scroll_to_element(self, element):
+        self.driver.execute_script("arguments[0].scrollIntoView(true);", element)
+
+
     def send_keys_to_element(self, locator, text, timeout=10):
         element = self.find_element(locator, timeout)
         element.clear()
