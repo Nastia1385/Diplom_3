@@ -1,3 +1,4 @@
+import urls
 from locators.personal_account_page_locators import PersonalAccountPageLocators
 from pages.base_page import BasePage
 
@@ -11,3 +12,6 @@ class PersonalAccountPage(BasePage):
 
     def click_logout(self):
         self.click_element(PersonalAccountPageLocators.LOGOUT_BUTTON)
+
+    def going_to_login_page(self):
+        self.wait_url_to_be(urls.LOGIN_URL)

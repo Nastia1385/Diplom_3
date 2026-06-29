@@ -1,9 +1,7 @@
 import allure
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait
 
-import urls
 from locators.personal_account_page_locators import PersonalAccountPageLocators
+from pages.main_page import login_url
 from pages.personal_account_page import PersonalAccountPage
 
 
@@ -17,7 +15,7 @@ class TestPersonalAccount:
         # Переходим в личный кабинет
         main_page.click_personal_account()
         # Проверяем, что перешли на страницу аккаунта
-        assert "/account" in driver.current_url and main_page.find_element(
+        assert "/account" in main_page.current_url() and main_page.find_element(
             PersonalAccountPageLocators.PROFILE_HEADER).is_displayed()
 
     @allure.step
@@ -32,7 +30,7 @@ class TestPersonalAccount:
         personal_account_page = PersonalAccountPage(driver)
         personal_account_page.click_order_history()
         # Проверяем, что URL содержит страницу истории заказов
-        assert "/order-history" in driver.current_url
+        assert "/order-history" in main_page.current_url()
 
     @allure.step
     def test_logout_from_account(self, driver, main_page, login_page, user):
@@ -45,6 +43,5 @@ class TestPersonalAccount:
         # Выходим из аккаунта
         personal_account_page = PersonalAccountPage(driver)
         personal_account_page.click_logout()
-        # Проверяем, что перешли на страницу логина
-        WebDriverWait(driver, 10).until(EC.url_to_be(urls.LOGIN_URL))
-        assert driver.current_url == urls.LOGIN_URL
+        personal_account_page.going_to_login_page()
+        assert login_url() == main_page.current_url()

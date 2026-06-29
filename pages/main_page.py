@@ -1,12 +1,10 @@
-import time
-
-from selenium.common import ElementClickInterceptedException
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
-
 import urls
 from locators.main_page_locators import MainPageLocators
 from pages.base_page import BasePage
+
+
+def login_url():
+    return urls.LOGIN_URL
 
 
 class MainPage(BasePage):
@@ -18,6 +16,9 @@ class MainPage(BasePage):
 
     def click_personal_account(self):
         self.click_element(MainPageLocators.PERSONAL_ACCOUNT_BUTTON)
+
+    def check_invisibility_ingredient_details_modal(self):
+        self.check_invisibility_element(MainPageLocators.INGREDIENT_DETAILS_MODAL)
 
     def click_constructor(self):
         self.click_element(MainPageLocators.CONSTRUCTOR_BUTTON)
@@ -68,3 +69,6 @@ class MainPage(BasePage):
     def close_order_modal(self):
         # Используем локатор, который ниже по дереву
         self.click_element(MainPageLocators.ORDER_MODAL_CLOSE_DETAILS)
+
+    def current_url(self):
+        return self.driver.current_url

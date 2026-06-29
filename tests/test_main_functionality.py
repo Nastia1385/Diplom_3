@@ -1,7 +1,5 @@
 import allure
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from locators.main_page_locators import MainPageLocators
+
 
 class TestMainFunctionality:
 
@@ -16,7 +14,7 @@ class TestMainFunctionality:
         # Кликаем на Конструктор
         main_page.click_constructor()
         # Проверяем, что на главной странице
-        assert "/" in driver.current_url
+        assert "/" in main_page.current_url()
         assert main_page.is_constructor_title_visible()
 
     @allure.step
@@ -28,7 +26,7 @@ class TestMainFunctionality:
         # Кликаем на Ленту заказов
         main_page.click_order_feed()
         # Проверяем, что перешли на страницу ленты заказов
-        assert "/feed" in driver.current_url
+        assert "/feed" in main_page.current_url()
 
     @allure.step
     def test_click_ingredient_shows_details_modal(self, driver, main_page):
@@ -39,7 +37,6 @@ class TestMainFunctionality:
         # Проверяем, что появилось модальное окно
         assert main_page.is_ingredient_details_visible()
 
-
     @allure.step
     def test_close_ingredient_details_modal(self, driver, main_page):
         """Проверка закрытия всплывающего окна кликом по крестику"""
@@ -49,9 +46,7 @@ class TestMainFunctionality:
         # Закрываем модальное окно
         main_page.close_ingredient_details()
         # Проверяем, что модальное окно закрылось (дожидаемся исчезновения)
-        WebDriverWait(driver, 10).until(
-            EC.invisibility_of_element_located(MainPageLocators.INGREDIENT_DETAILS_MODAL)
-        )
+        main_page.check_invisibility_ingredient_details_modal()
         assert not main_page.is_ingredient_details_visible(), "Модальное окно деталей ингредиента не закрылось"
 
     @allure.step
@@ -80,7 +75,6 @@ class TestMainFunctionality:
         # Проверяем, что каунтер увеличился на 1
         assert new_counter == initial_counter + 1
 
-
     @allure.step
     def test_logged_in_user_can_create_order(self, driver, main_page, login_page, user):
         """Проверка создания заказа залогиненным пользователем"""
@@ -98,4 +92,3 @@ class TestMainFunctionality:
         assert (order_number is not None
                 and order_number != "9999"
                 and order_number.isdigit())
-

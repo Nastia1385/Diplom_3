@@ -28,7 +28,6 @@ class BasePage:
     def scroll_to_element(self, element):
         self.driver.execute_script("arguments[0].scrollIntoView(true);", element)
 
-
     def send_keys_to_element(self, locator, text, timeout=10):
         element = self.find_element(locator, timeout)
         element.clear()
@@ -82,3 +81,10 @@ class BasePage:
 
     def open_page(self, url):
         self.driver.get(url)
+
+    def check_invisibility_element(self, locator, timeout=10):
+        wait = WebDriverWait(self.driver, timeout)
+        wait.until(EC.invisibility_of_element_located(locator))
+
+    def wait_url_to_be(self, url, timeout=10):
+        WebDriverWait(self.driver, timeout).until(EC.url_to_be(url))
