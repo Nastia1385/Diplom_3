@@ -1,7 +1,6 @@
 import time
 
 import allure
-from selenium.common import ElementClickInterceptedException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -66,12 +65,20 @@ class BasePage:
                    """, element_from, element_to)
 
     def click_element(self, locator, timeout=10):
-        time.sleep(0.3)
         wait = WebDriverWait(self.driver, timeout)
         element = wait.until(EC.element_to_be_clickable(locator))
-        try:
+        self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", element)
+        is_clickable = wait.until(lambda driver: driver.execute_script("""
+            var rect = arguments[0].getBoundingClientRect();
+            var centerX = rect.left + rect.width / 2;
+            var centerY = rect.top + rect.height / 2;
+            var elementAtCenter = document.elementFromPoint(centerX, centerY);
+            return elementAtCenter === arguments[0] || arguments[0].contains(elementAtCenter);
+        """, element))
+
+        if is_clickable:
             element.click()
-        except ElementClickInterceptedException:
+        else:
             self.driver.execute_script("arguments[0].click();", element)
 
     def wait_for_text_not_to_be(self, locator, text, timeout=30):

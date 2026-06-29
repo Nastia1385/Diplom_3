@@ -7,7 +7,6 @@ from pages.order_feed_page import OrderFeedPage
 class TestOrderFeed:
 
     @allure.title("Проверка открытия всплывающего окна с деталями при клике на заказ в ленте")
-    @allure.step("Тест: клик по заказу в ленте открывает детали")
     def test_click_order_in_feed_opens_details(self, driver, order_feed_page):
         with allure.step("Открыть страницу ленты заказов"):
             order_feed_page.open_order_feed_page()
@@ -23,7 +22,6 @@ class TestOrderFeed:
             assert order_feed_page.is_order_details_visible()
 
     @allure.title("Проверка отображения заказов пользователя на странице Лента заказов")
-    @allure.step("Тест: отображение заказов пользователя в ленте")
     def test_user_orders_visible_in_order_feed(self, driver, main_page, login_page, user):
         with allure.step("Авторизоваться под пользователем"):
             login_page.open_login_page()
@@ -49,7 +47,6 @@ class TestOrderFeed:
         ("get_completed_orders_today", "за сегодня")
     ])
     @allure.title("Проверка увеличения счетчиков 'Выполнено за всё время' и 'Выполнено за сегодня' при создании заказа")
-    @allure.step("Тест: создание заказа увеличивает счетчики выполненных заказов")
     def test_create_order_increases_completed_counters(self, driver, main_page, login_page, user, counter_method,
                                                        counter_name):
         with allure.step("Авторизоваться под пользователем"):
@@ -78,7 +75,6 @@ class TestOrderFeed:
             assert new_value > initial_value, f"Счетчик 'Выполнено {counter_name}' не увеличился после создания заказа"
 
     @allure.title("Проверка появления номера заказа в разделе 'В работе' после оформления")
-    @allure.step("Тест: номер заказа появляется в разделе 'В работе'")
     def test_order_number_appears_in_progress_after_creation(self, driver, main_page, login_page, user):
         with allure.step("Авторизоваться под пользователем"):
             login_page.open_login_page()

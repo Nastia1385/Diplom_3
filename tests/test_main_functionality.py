@@ -5,7 +5,6 @@ class TestMainFunctionality:
 
     @allure.title("Переход на главную страницу по клику на «Конструктор»")
     def test_click_constructor_redirects_to_main(self, driver, main_page, login_page, user):
-        """Проверка перехода по клику на «Конструктор»"""
         with allure.step("Логинимся"):
             login_page.open_login_page()
             login_page.login(user['email'], user['password'])
@@ -22,7 +21,6 @@ class TestMainFunctionality:
 
     @allure.title("Переход на страницу «Лента заказов»")
     def test_click_order_feed_redirects_to_feed(self, driver, main_page, login_page, user):
-        """Проверка перехода по клику на «Лента заказов»"""
         with allure.step("Логинимся"):
             login_page.open_login_page()
             login_page.login(user['email'], user['password'])
@@ -35,7 +33,6 @@ class TestMainFunctionality:
 
     @allure.title("Открытие модального окна с деталями ингредиента")
     def test_click_ingredient_shows_details_modal(self, driver, main_page):
-        """Проверка появления всплывающего окна с деталями при клике на ингредиент"""
         with allure.step("Открываем главную страницу"):
             main_page.open_main_page()
 
@@ -47,7 +44,6 @@ class TestMainFunctionality:
 
     @allure.title("Закрытие модального окна деталей ингредиента")
     def test_close_ingredient_details_modal(self, driver, main_page):
-        """Проверка закрытия всплывающего окна кликом по крестику"""
         with allure.step("Открываем главную страницу"):
             main_page.open_main_page()
 
@@ -65,7 +61,6 @@ class TestMainFunctionality:
 
     @allure.title("Увеличение каунтера булки на 2 при добавлении в заказ")
     def test_add_bun_increases_counter_by_2(self, driver, main_page):
-        """Проверка увеличения каунтера булки на 2 при добавлении в заказ"""
         with allure.step("Открываем главную страницу"):
             main_page.open_main_page()
 
@@ -83,7 +78,6 @@ class TestMainFunctionality:
 
     @allure.title("Увеличение каунтера ингредиента на 1 при добавлении в заказ")
     def test_add_ingredient_increases_counter_by_1(self, driver, main_page):
-        """Проверка увеличения каунтера ингредиента на 1 при добавлении в заказ"""
         with allure.step("Открываем главную страницу"):
             main_page.open_main_page()
 
@@ -101,7 +95,6 @@ class TestMainFunctionality:
 
     @allure.title("Создание заказа авторизованным пользователем")
     def test_logged_in_user_can_create_order(self, driver, main_page, login_page, user):
-        """Проверка создания заказа залогиненным пользователем"""
         with allure.step("Логинимся"):
             login_page.open_login_page()
             login_page.login(user['email'], user['password'])
