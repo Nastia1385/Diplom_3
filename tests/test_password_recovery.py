@@ -1,11 +1,10 @@
 import allure
-
 import urls
 
 
 class TestPasswordRecovery:
 
-    @allure.step
+    @allure.title("Проверка перехода на страницу восстановления пароля по кнопке «Восстановить пароль»")
     def test_click_password_recovery_link_redirects_to_recovery_page(self, driver, login_page, password_recovery_page,
                                                                      main_page):
         """Проверка перехода на страницу восстановления пароля по кнопке «Восстановить пароль»"""
@@ -14,7 +13,7 @@ class TestPasswordRecovery:
         # Проверяем, что мы на странице восстановления пароля
         assert urls.PASSWORD_RECOVERY_URL == main_page.current_url()
 
-    @allure.step
+    @allure.title("Проверка ввода почты и клика по кнопке «Восстановить»")
     def test_enter_email_and_click_recover(self, driver, password_recovery_page, user, main_page):
         """Проверка ввода почты и клика по кнопке «Восстановить»"""
         password_recovery_page.open_password_recovery_page()
@@ -23,7 +22,7 @@ class TestPasswordRecovery:
         password_recovery_page.click_recover_button()
         assert "forgot-password" in main_page.current_url()
 
-    @allure.step
+    @allure.title("Проверка клика по кнопке показать/скрыть пароль - поле становится активным")
     def test_show_password_button_highlights_field(self, driver, password_recovery_page, user):
         """Проверка клика по кнопке показать/скрыть пароль - поле становится активным"""
         password_recovery_page.open_password_recovery_page()
